@@ -19,6 +19,8 @@ module.exports = {
     ]
   },
 
+  srcDir: 'app',
+
   /*
   ** Customize the progress-bar color
   */
