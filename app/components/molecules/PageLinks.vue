@@ -1,9 +1,10 @@
 <template>
-  <page-link
-    linkUrl="/profiles"
-    linkName="プロフィール"
-  >
-  </page-link>
+  <div>
+    <page-link linkUrl="/profiles" linkName="プロフィール" />
+    <page-link linkUrl="/applications" linkName="アプリケーション" />
+    <page-link linkUrl="/galleries" linkName="ギャラリー" />
+    <a href="https://github.com/narisada014">ソースコード</a>
+  </div>
 </template>
 
 <script>

@@ -1,6 +1,5 @@
 <template>
   <div>
-    <span>default layout</span>
     <AppNavigation />
     <hr>
     <nuxt />
