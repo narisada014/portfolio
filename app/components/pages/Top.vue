@@ -1,12 +1,12 @@
 <template>
-  <top />
+  <page-links />
 </template>
 
 <script>
-import Top from '../components/pages/Top'
+import PageLinks from '../molecules/PageLinks'
 export default {
   components: {
-    Top
+    PageLinks
   }
 }
 </script>
