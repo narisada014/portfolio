@@ -2,7 +2,7 @@
   <div>
     <page-link linkUrl="/profiles" linkName="プロフィール" />
     <page-link linkUrl="/applications" linkName="アプリケーション" />
-    <page-link linkUrl="/galleries" linkName="ギャラリー" />
+    <page-link linkUrl="/outputs" linkName="Outputs" />
     <a href="https://github.com/narisada014">ソースコード</a>
   </div>
 </template>
