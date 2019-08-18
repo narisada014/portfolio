@@ -22,21 +22,25 @@
       </el-input>
     </div>
     <div style="margin: 20px 0;"></div>
-    <div class="upload-container">
-      <h1 class="book-image-label">本の表紙画像</h1>
-      <el-upload
-        class="avatar-uploader"
-        action=""
-        :auto-upload="false"
-        :on-change="handleAdd"
-        :before-upload="beforeAvatarUpload"
-        :show-file-list="false"
-      >
-        <img v-if="imageUrl" :src="imageUrl" class="avatar">
-        <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-      </el-upload>
+    <div class="register-container">
+      <div class="upload-image">
+        <h1 class="book-image-label">本の表紙画像</h1>
+        <el-upload
+          class="avatar-uploader"
+          action=""
+          :auto-upload="false"
+          :on-change="handleAdd"
+          :before-upload="beforeAvatarUpload"
+          :show-file-list="false"
+        >
+          <img v-if="imageUrl" :src="imageUrl" class="avatar">
+          <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+        </el-upload>
+      </div>
+      <div class="register-button">
+        <el-button class="register-book" size="mini" type="default" @click="handleSave">1冊目の本を登録する</el-button>
+      </div>
     </div>
-    <el-button class="register-book" size="mini" type="default" @click="handleSave">1冊目の本を登録する</el-button>
   </div>
 </template>
 
@@ -88,79 +92,94 @@
 </script>
 
 <style>
-  .books-register {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
-    grid-template-rows: 30px 169px 200px;
-    grid-column-gap: 20px;
-  }
-  .page-title {
-    grid-row: 1;
-    grid-column: 1 / 4;
-  }
-  .input-area {
-    grid-row: 2;
-    grid-column: 2 / 5;
-    padding-left: 65px;
-    padding-top: 30px;
-  }
-  .title-label {
-    color: black;
-    opacity: .5;
-  }
-  .title {
-    width: 500px;
-    border-radius: 4px;
-    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
-  }
-  .content-label {
-    color: black;
-    opacity: .5;
-  }
-  .book-textarea {
-    width: 500px;
-    border-radius: 4px;
-    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
-  }
-  .book-image-label {
-    color: black;
-    opacity: .6;
-  }
-  .upload-container {
-    overflow: hidden;
-    grid-row: 3;
-    grid-column: 2;
-    padding-top: 50px;
-    padding-left: 65px;
-  }
-  .register-book {
-    grid-row: 3;
-    grid-column: 4;
-    height: 50px;
-    width: 160px;
-    margin-top: 100px;
-  }
-  .avatar-uploader .el-upload {
-    border: 1px dashed #d9d9d9;
-    border-radius: 6px;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-  }
-  .avatar-uploader .el-upload:hover {
-    border-color: #409EFF;
-  }
-  .avatar-uploader-icon {
-    font-size: 28px;
-    color: #8c939d;
-    width: 100px;
-    height: 100px;
-    line-height: 100px;
-    text-align: center;
-  }
-  .avatar {
-    width: 100px;
-    height: 100px;
-    display: block;
+  @media screen and (min-width: 767px) {
+    .books-register {
+      display: flex;
+      flex-direction: column;
+      width: 500px;
+      margin: auto;
+    }
+
+    .page-title {
+    }
+
+    .input-area {
+      align-self: center;
+      padding-top: 30px;
+    }
+
+    .title-label {
+      color: black;
+      opacity: .5;
+    }
+
+    .title {
+      width: 500px;
+      border-radius: 4px;
+      box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+    }
+
+    .content-label {
+      color: black;
+      opacity: .5;
+    }
+
+    .book-textarea {
+      width: 500px;
+      border-radius: 4px;
+      box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+    }
+
+    .book-image-label {
+      color: black;
+      opacity: .6;
+    }
+
+    .register-container {
+      overflow: hidden;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+    }
+
+    .upload-image {
+    }
+
+    .register-button {
+      margin-left: auto;
+
+    }
+
+    .register-book {
+      height: 50px;
+      width: 160px;
+    }
+
+    .avatar-uploader .el-upload {
+      border: 1px dashed #d9d9d9;
+      border-radius: 6px;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .avatar-uploader .el-upload:hover {
+      border-color: #409EFF;
+    }
+
+    .avatar-uploader-icon {
+      font-size: 28px;
+      color: #8c939d;
+      width: 100px;
+      height: 100px;
+      line-height: 100px;
+      text-align: center;
+    }
+
+    .avatar {
+      width: 100px;
+      height: 100px;
+      display: block;
+    }
   }
 </style>
