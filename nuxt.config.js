@@ -39,6 +39,10 @@ module.exports = {
   plugins: [
     {
       src: '~plugins/element-ui'
+    },
+    {
+      src: '~plugins/amplify.js',
+      ssr: false
     }
   ],
 
@@ -71,5 +75,11 @@ module.exports = {
     */
     extend(config, ctx) {
     }
+  },
+  env: {
+    identityPoolId: process.env.IDENTITY_POOL_ID,
+    region: process.env.REGION,
+    userPoolId: process.env.USER_POOL_ID,
+    userPoolWebClientId: process.env.USER_POOL_WEB_CLIENT_ID
   }
 }
