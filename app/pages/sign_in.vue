@@ -1,45 +1,46 @@
 <template>
   <div>
-    <div class="register-card">
-      <el-form status-icon ref="ruleForm" label-width="95px" class="form-area">
-        <el-form-item label="ユーザーID" prop="user_id" class="user-id-area">
-          <el-input v-model="userId" autocomplete="off"></el-input>
-        </el-form-item>
-        <el-form-item label="Email" prop="email" class="email-area">
-          <el-input type="email" v-model="email"></el-input>
-        </el-form-item>
-        <el-form-item label="Password" prop="Password" class="password-area">
-          <el-input type="password" v-model="password" autocomplete="off"></el-input>
-        </el-form-item>
-        <el-form-item class="sign-up-button">
-          <el-button type="primary" @click="submitForm">新規登録</el-button>
-          <el-button @click="resetForm">リセット</el-button>
-        </el-form-item>
-      </el-form>
-    </div>
-    <div class="confirm-modal" v-if="showModal">
-      <transition name="modal" appear>
-        <div class="modal modal-overlay">
-          <el-input
-            class="code-input-area"
-            type="input"
-            autosize
-            placeholder="認証コードを入力してください"
-            v-model="code"
-            style="width: 300px;"
-          >
-          </el-input>
-          <div class="register-button">
-            <el-button class="submit-code" size="mini" type="primary" @click="signUpConfirm">コードを送信</el-button>
+      <div class="register-card">
+        <el-form status-icon ref="ruleForm" label-width="95px" class="form-area" v-loading="loading">
+          <el-form-item label="ユーザーID" prop="user_id" class="user-id-area">
+            <el-input v-model="userId" autocomplete="off" style="padding-right: 45px;"></el-input>
+          </el-form-item>
+          <el-form-item label="Email" prop="email" class="email-area">
+            <el-input type="email" v-model="email" style="padding-right: 45px;"></el-input>
+          </el-form-item>
+          <el-form-item label="Password" prop="Password" class="password-area">
+            <el-input type="password" v-model="password" autocomplete="off" style="padding-right: 45px;"></el-input>
+          </el-form-item>
+          <el-form-item class="sign-up-button">
+            <el-button type="primary" @click="submitForm">新規登録</el-button>
+            <el-button @click="resetForm">リセット</el-button>
+          </el-form-item>
+        </el-form>
+      </div>
+      <div class="confirm-modal" v-if="showModal">
+        <transition name="modal" appear>
+          <div class="modal modal-overlay">
+            <el-input
+              class="code-input-area"
+              type="input"
+              autosize
+              placeholder="認証コードを入力してください"
+              v-model="code"
+              style="width: 300px;"
+            >
+            </el-input>
+            <div class="register-button">
+              <el-button class="submit-code" size="mini" type="primary" @click="signUpConfirm">コードを送信</el-button>
+            </div>
           </div>
-        </div>
-      </transition>
+        </transition>
+      </div>
     </div>
-  </div>
 </template>
 
 <script>
   import { Auth } from 'aws-amplify';
+  import axios from 'axios';
   export default {
     data() {
       // TODO バリデーションはあとで実装する
@@ -64,17 +65,31 @@
         email: '',
         password: '',
         showModal: false,
-        code: ''
+        code: '',
+        showAlert: false,
+        loading: false
       };
     },
     methods: {
       submitForm() {
+        this.loading = true
         Auth.signUp(this.userId, this.password, this.email)
           .then(res => {
-            this.showModal = true
+            axios.post('http://localhost:3000/users', {
+              userId: this.userId
+            }).then(res => {
+              if (res.status === 200) {
+                this.loading = false
+                this.showModal = true
+              }
+            }).catch(err => {
+              console.log(err)
+              this.showAlert = true
+            })
           })
           .catch(error => {
             console.log(error)
+            this.showAlert = true
           })
       },
       resetForm() {
@@ -109,6 +124,11 @@
     display: flex;
     flex-direction: column;
     align-self: center;
+    width: 100%;
+  }
+
+  .circular {
+    margin: auto;
   }
 
   .user-id-area {
