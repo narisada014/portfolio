@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-container>
-      <el-header>Book Sync</el-header>
+      <el-header height="50px;">Port Folio</el-header>
       <el-main>
         <nuxt/>
         <nuxt-link to="/">トップに戻る</nuxt-link>
@@ -20,20 +20,23 @@
     min-height: 100vh;
   }
   .el-header {
-    background: -webkit-linear-gradient(85deg, rgb(22, 201, 237), rgb(192, 164, 237));
-    background: linear-gradient(85deg, rgb(22, 201, 237), rgb(192, 164, 237));
+    background: -webkit-linear-gradient(90deg, rgb(255, 173, 0), rgb(245, 245, 239));
+    background: linear-gradient(90deg, rgb(255, 173, 0), rgb(245, 245, 239));
     color: #ffffff;
+    font-weight: bold;
     text-align: center;
-    line-height: 60px;
+    line-height: 50px;
+    opacity: 0.9;
   }
   .el-footer {
-    background: -webkit-linear-gradient(85deg, rgb(22, 201, 237), rgb(192, 164, 237));
-    background: linear-gradient(85deg, rgb(22, 201, 237), rgb(192, 164, 237));
+    background: -webkit-linear-gradient(90deg, rgb(255, 173, 0), rgb(245, 245, 239));
+    background: linear-gradient(90deg, rgb(255, 173, 0), rgb(245, 245, 239));
     color: #ffffff;
+    font-weight: bold;
     text-align: center;
     line-height: 40px;
   }
   .el-main {
-    /*height: auto;*/
+    padding: 0;
   }
 </style>

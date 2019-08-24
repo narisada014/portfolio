@@ -1,41 +1,45 @@
 <template>
   <div>
-      <div class="register-card">
-        <el-form status-icon ref="ruleForm" label-width="95px" class="form-area" v-loading="loading">
-          <el-form-item label="ユーザーID" prop="user_id" class="user-id-area">
-            <el-input v-model="userId" autocomplete="off" style="padding-right: 45px;"></el-input>
-          </el-form-item>
-          <el-form-item label="Email" prop="email" class="email-area">
-            <el-input type="email" v-model="email" style="padding-right: 45px;"></el-input>
-          </el-form-item>
-          <el-form-item label="Password" prop="Password" class="password-area">
-            <el-input type="password" v-model="password" autocomplete="off" style="padding-right: 45px;"></el-input>
-          </el-form-item>
-          <el-form-item class="sign-up-button">
-            <el-button type="primary" @click="submitForm">新規登録</el-button>
-            <el-button @click="resetForm">リセット</el-button>
-          </el-form-item>
-        </el-form>
-      </div>
-      <div class="confirm-modal" v-if="showModal">
-        <transition name="modal" appear>
-          <div class="modal modal-overlay">
-            <el-input
-              class="code-input-area"
-              type="input"
-              autosize
-              placeholder="認証コードを入力してください"
-              v-model="code"
-              style="width: 300px;"
-            >
-            </el-input>
-            <div class="register-button">
-              <el-button class="submit-code" size="mini" type="primary" @click="signUpConfirm">コードを送信</el-button>
-            </div>
-          </div>
-        </transition>
-      </div>
+    <div class="main-image">
+      <img class="book-image" src="~/assets/images/main-page.jpg" />
+      <p>Book Sync</p>
     </div>
+    <div class="register-card">
+      <el-form status-icon ref="ruleForm" label-width="95px" class="form-area" v-loading="loading">
+        <el-form-item label="ユーザーID" prop="user_id" class="user-id-area">
+          <el-input v-model="userId" autocomplete="off" style="padding-right: 45px;"></el-input>
+        </el-form-item>
+        <el-form-item label="Email" prop="email" class="email-area">
+          <el-input type="email" v-model="email" style="padding-right: 45px;"></el-input>
+        </el-form-item>
+        <el-form-item label="Password" prop="Password" class="password-area">
+          <el-input type="password" v-model="password" autocomplete="off" style="padding-right: 45px;"></el-input>
+        </el-form-item>
+        <el-form-item class="sign-up-button">
+          <el-button type="primary" @click="submitForm">新規登録</el-button>
+          <el-button @click="resetForm">リセット</el-button>
+        </el-form-item>
+      </el-form>
+    </div>
+    <div class="confirm-modal" v-if="showModal">
+      <transition name="modal" appear>
+        <div class="modal modal-overlay">
+          <el-input
+            class="code-input-area"
+            type="input"
+            autosize
+            placeholder="認証コードを入力してください"
+            v-model="code"
+            style="width: 300px;"
+          >
+          </el-input>
+          <div class="register-button">
+            <el-button class="submit-code" size="mini" type="primary" @click="signUpConfirm">コードを送信</el-button>
+          </div>
+        </div>
+      </transition>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -112,6 +116,33 @@
 </script>
 
 <style lang="scss">
+  .main-image {
+    position: relative;
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .main-image p {
+    position: absolute;
+    color: navajowhite;
+    font-weight: bold;
+    font-size: 4em;
+    font-family :Quicksand, sans-serif;
+    top: 50%;
+    left: 50%;
+    margin: 0;
+    padding: 0;
+    -ms-transform: translate(-50%,-50%);
+    -webkit-transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%);
+  }
+  .book-image {
+    width: 90%;
+    margin: 30px auto auto;
+    opacity: 0.7;
+    height: auto;
+  }
+
   .register-card {
     display: flex;
     width: 350px;
