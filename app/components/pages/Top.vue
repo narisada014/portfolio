@@ -1,5 +1,7 @@
 <template>
-  <page-links />
+  <div class="top">
+    <page-links />
+  </div>
 </template>
 
 <script>
@@ -10,3 +12,8 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+  .top {
+  }
+</style>

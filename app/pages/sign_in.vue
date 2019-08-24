@@ -42,6 +42,7 @@
   import { Auth } from 'aws-amplify';
   import axios from 'axios';
   export default {
+    layout: 'single',
     data() {
       // TODO バリデーションはあとで実装する
       // const validateEmail = (rule, value, callback) => {

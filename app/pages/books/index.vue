@@ -47,6 +47,7 @@
 <script>
   import axios from 'axios'
   export default {
+    layout: 'single',
     data() {
       return {
         imageUrl: '',
