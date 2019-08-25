@@ -47,7 +47,6 @@
 <script>
   import axios from 'axios'
   export default {
-    // layout: 'single',
     data() {
       return {
         imageUrl: '',
@@ -95,10 +94,12 @@
 <style>
   @media screen and (min-width: 767px) {
     .books-register {
+      font-family:"Yu Gothic", "游ゴシック", YuGothic, "游ゴシック体";
       display: flex;
       flex-direction: column;
       width: 500px;
       margin: auto;
+      padding-top: 70px;
     }
 
     .page-title {

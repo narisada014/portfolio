@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-container>
+<!--    <el-container>-->
       <el-main>
         <div class="register-card">
           <el-form status-icon ref="ruleForm" label-width="95px" class="form-area" v-loading="loading">
@@ -38,7 +38,7 @@
           </transition>
         </div>
       </el-main>
-    </el-container>
+<!--    </el-container>-->
   </div>
 </template>
 

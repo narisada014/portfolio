@@ -1,6 +1,5 @@
 <template>
-    <el-container>
-      <Header />
+<!--    <el-container>-->
       <div class="main">
         <div class="main-image">
           <img class="book-image" src="~/assets/images/main-page.jpg" />
@@ -8,7 +7,7 @@
             知恵が「ツナガル」。</p>
         </div>
       </div>
-    </el-container>
+<!--    </el-container>-->
 </template>
 
 <script>
@@ -33,15 +32,12 @@
 <style lang="scss">
   .el-container {
     /*コンテナの中身をブラウザ高さに合わせる*/
-    min-height: 100vh;
+    /*min-height: 100vh;*/
   }
 
   .main {
-    /*padding: 0;*/
-    /*margin-bottom: 0;*/
     position: relative;
     flex: auto;
-    /*height: 500px;*/
   }
 
   .main-image {
@@ -64,7 +60,7 @@
   .book-image {
     width: 100%;
     opacity: 0.7;
-    height: 500px;
+    height: 550px;
     object-fit: cover;
     filter: brightness(80%);
   }
