@@ -1,14 +1,12 @@
 <template>
-  <SignIn />
+  <Top />
 </template>
 
 <script>
-// import Top from '../components/pages/Top'
-import SignIn from './sign_in'
+import Top from '../components/pages/Top'
 export default {
-  layout: 'single',
   components: {
-    SignIn
+    Top
   }
 }
 </script>
