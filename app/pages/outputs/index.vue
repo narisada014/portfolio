@@ -20,6 +20,6 @@
 
 <script>
   export default {
-    layout: 'single'
+    // layout: 'single'
   }
 </script>

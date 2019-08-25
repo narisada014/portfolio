@@ -2,7 +2,6 @@
   <div>
     <el-container>
       <el-main>
-        <Header />
         <div class="register-card">
           <el-form status-icon ref="ruleForm" label-width="95px" class="form-area" v-loading="loading">
             <el-form-item label="ユーザーID" prop="user_id" class="user-id-area">
@@ -39,7 +38,6 @@
           </transition>
         </div>
       </el-main>
-      <el-footer height="40px;">By Reishi Narisada</el-footer>
     </el-container>
   </div>
 </template>

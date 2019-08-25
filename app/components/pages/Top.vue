@@ -8,16 +8,16 @@
             知恵が「ツナガル」。</p>
         </div>
       </div>
-      <footer class="footer">By Reishi Narisada</footer>
     </el-container>
 </template>
 
 <script>
   import Header from '../organizms/Header'
+  import Footer from '../organizms/Footer'
   export default {
-    components: { Header },
-    component: {
-      Header
+    components: {
+      Header,
+      Footer
     },
     methods: {
       handleSelect() {
@@ -67,12 +67,5 @@
     height: 500px;
     object-fit: cover;
     filter: brightness(80%);
-  }
-  .footer {
-    background-color: transparent;
-    color: gray;
-    font-weight: bold;
-    text-align: center;
-    line-height: 40px;
   }
 </style>
