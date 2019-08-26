@@ -43,9 +43,14 @@
     methods: {
       async handleLogin() {
         try {
-          const user = await Auth.signIn(this.userId, this.password)
-          // console.log(user)
+          Auth.signIn(this.userId, this.password).then(user => {
+            console.log(user)
+            if (user) {
+              location.href = '/books'
+            }
+          })
         } catch(error) {
+          console.log('hoge')
           console.log(error)
           // TODO: 例外処理
           if (error.code === 'UserNotConfirmedException') {
