@@ -1,134 +1,71 @@
 <template>
   <div>
-<!--    <el-container>-->
-      <el-main>
-        <div class="register-card">
-          <el-form status-icon ref="ruleForm" label-width="95px" class="form-area" v-loading="loading">
-            <el-form-item label="ユーザーID" prop="user_id" class="user-id-area">
-              <el-input v-model="userId" autocomplete="off" style="padding-right: 45px;"></el-input>
-            </el-form-item>
-            <el-form-item label="Email" prop="email" class="email-area">
-              <el-input type="email" v-model="email" style="padding-right: 45px;"></el-input>
-            </el-form-item>
-            <el-form-item label="Password" prop="Password" class="password-area">
-              <el-input type="password" v-model="password" autocomplete="off" style="padding-right: 45px;"></el-input>
-            </el-form-item>
-            <el-form-item class="sign-up-button">
-              <el-button type="primary" @click="submitForm">新規登録</el-button>
-              <el-button @click="resetForm">リセット</el-button>
-            </el-form-item>
-          </el-form>
-        </div>
-        <div class="confirm-modal" v-if="showModal">
-          <transition name="modal" appear>
-            <div class="modal modal-overlay">
-              <el-input
-                class="code-input-area"
-                type="input"
-                autosize
-                placeholder="認証コードを入力してください"
-                v-model="code"
-                style="width: 300px;"
-              >
-              </el-input>
-              <div class="register-button">
-                <el-button class="submit-code" size="mini" type="primary" @click="signUpConfirm">コードを送信</el-button>
-              </div>
-            </div>
-          </transition>
-        </div>
-      </el-main>
-<!--    </el-container>-->
+    <el-main>
+      <div class="register-card">
+        <el-form status-icon ref="ruleForm" label-width="95px" class="form-area" v-loading="loading">
+          <el-form-item label="ユーザーID" prop="user_id" class="user-id-area">
+            <el-input v-model="userId" autocomplete="off" style="padding-right: 45px;"></el-input>
+          </el-form-item>
+          <el-form-item label="Password" prop="Password" class="password-area">
+            <el-input type="password" v-model="password" autocomplete="off" style="padding-right: 45px;"></el-input>
+          </el-form-item>
+          <el-form-item class="sign-up-button">
+            <el-button type="primary" @click="handleLogin">ログイン</el-button>
+          </el-form-item>
+        </el-form>
+      </div>
+    </el-main>
   </div>
 </template>
 
 <script>
   import { Auth } from 'aws-amplify';
-  import axios from 'axios';
-  import Header from '../organizms/Header';
   export default {
-    components: {
-      Header
-    },
     data() {
-      // TODO バリデーションはあとで実装する
-      // const validateEmail = (rule, value, callback) => {
-      //   if (value === '') {
-      //     callback(new Error('emailを入力してください'));
-      //   } else {
-      //     callback();
-      //   }
-      // };
-      // const validatePass = (rule, value, callback) => {
-      //   if (value === '') {
-      //     callback(new Error('Please input the password again'));
-      //   } else if (value !== this.ruleForm.pass) {
-      //     callback(new Error('Two inputs don\'t match!'));
-      //   } else {
-      //     callback();
-      //   }
-      // };
       return {
         userId: '',
-        email: '',
         password: '',
-        showModal: false,
-        code: '',
-        showAlert: false,
         loading: false
       };
     },
+    mounted() {
+      Auth.currentAuthenticatedUser({
+        bypassCache: true
+      }).then(user => {
+        console.log(user)
+        if (user) {
+          location.href = '/books'
+        }
+      }).catch(err => {
+        console.log(err)
+      });
+    },
     methods: {
-      submitForm() {
-        this.loading = true
-        Auth.signUp(this.userId, this.password, this.email)
-          .then(res => {
-            axios.post('http://localhost:3000/users', {
-              userId: this.userId
-            }).then(res => {
-              if (res.status === 200) {
-                this.loading = false
-                this.showModal = true
-              }
-            }).catch(err => {
-              console.log(err)
-              this.showAlert = true
-            })
-          })
-          .catch(error => {
-            console.log(error)
-            this.showAlert = true
-          })
-      },
-      resetForm() {
-        this.userId = '';
-        this.email = '';
-        this.password = '';
-      },
-      signUpConfirm() {
-        Auth.confirmSignUp(this.userId, this.code)
-          .then(res => {
-            this.$router.push('books')
-          })
-          .catch(error => {
-            console.log(error)
-          })
+      async handleLogin() {
+        try {
+          const user = await Auth.signIn(this.userId, this.password)
+          // console.log(user)
+        } catch(error) {
+          console.log(error)
+          // TODO: 例外処理
+          if (error.code === 'UserNotConfirmedException') {
+            console.log('ユーザーはコード認証が済んでいません')
+          } else if (error.code === 'PasswordResetRequiredException') {
+            console.log('パスワードをリセットしてください')
+          } else if (error.code === 'NotAuthorizedException') {
+            console.log('そのユーザーは認証できません')
+          } else if (error.code === 'UserNotFoundException') {
+            console.log('ユーザーはいません')
+          } else {
+            console.log(error);
+          }
+        }
       }
     }
   }
 </script>
 
 <style lang="scss">
-  .el-container {
-    /*コンテナの中身をブラウザ高さに合わせる*/
-    min-height: 100vh;
-  }
-
-  .el-menu-item p {
-    font-weight: bold;
-    font-size: 1.5em;
-  }
-
   .el-main {
     padding: 0;
     position: relative;
@@ -152,10 +89,6 @@
 
   .circular {
     margin: auto;
-  }
-
-  .user-id-area {
-    align-items: center;
   }
 
   .email-area {

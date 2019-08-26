@@ -2,20 +2,47 @@
   <header class="main-header">
     <div class="main-icon"><nuxt-link to="/">B|S</nuxt-link></div>
     <div class="right-header">
-      <div class="header-button"><nuxt-link to="/sign_in">ログイン</nuxt-link></div>
-      <div class="header-button"><nuxt-link to="/sign_in">新規登録</nuxt-link></div>
+      <div class="header-button" v-if="!isLoggedIn"><nuxt-link to="/login">ログイン</nuxt-link></div>
+      <div class="header-button" v-if="!isLoggedIn"><nuxt-link to="/sign_up">新規登録</nuxt-link></div>
+      <div class="sign-out-button" v-if="isLoggedIn" @click="signOut">ログアウト</div>
     </div>
   </header>
 </template>
 
 <script>
+  import { Auth } from 'aws-amplify';
   export default {
+    data() {
+      return {
+        isLoggedIn: false
+      }
+    },
+    created() {
+      Auth.currentAuthenticatedUser({
+        bypassCache: true
+      }).then(user => {
+        console.log(user)
+        if (user) {
+          this.isLoggedIn = true
+        }
+      }).catch(err => {
+        console.log(err)
+      });
+    },
     methods: {
       handleSelect() {
         console.log('hoge')
       },
       backToHome() {
         console.log('ふー')
+      },
+      signOut() {
+        Auth.signOut({ global: true })
+          .then(data => {
+            console.log(data)
+            this.isLoggedIn = false
+          })
+          .catch(err => console.log(err));
       }
     }
   }
@@ -56,5 +83,13 @@
     font-weight: bold;
     margin-left: 10px;
     margin-right: 10px;
+  }
+
+  .sign-out-button {
+    color: gray;
+    font-weight: bold;
+    margin-left: 10px;
+    margin-right: 10px;
+    cursor: pointer;
   }
 </style>

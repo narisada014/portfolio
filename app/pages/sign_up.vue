@@ -1,12 +1,12 @@
 <template>
-  <Login />
+  <SignUp />
 </template>
 
 <script>
-  import Login from '../components/pages/Login'
+  import SignUp from '../components/pages/SignUp'
   export default {
    components: {
-     Login
+     SignUp
    }
   }
 </script>

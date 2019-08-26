@@ -4,5 +4,6 @@ export default async ({ redirect }) => {
   let signedIn = false
   await Auth.currentUserInfo()
     .then(data => (signedIn = Boolean(data)))
-    .then(() => signedIn || redirect('/sign_in'))
+    .catch(error => console.log(error))
+    .then(() => signedIn || redirect('/login'))
 }
