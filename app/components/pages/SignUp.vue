@@ -44,18 +44,6 @@
   import { Auth } from 'aws-amplify';
   import axios from 'axios';
   export default {
-    mounted() {
-      Auth.currentAuthenticatedUser({
-        bypassCache: true
-      }).then(user => {
-        console.log(user)
-        if (user) {
-          location.href = '/books'
-        }
-      }).catch(err => {
-        console.log(err)
-      });
-    },
     data() {
       // TODO バリデーションはあとで実装する
       // const validateEmail = (rule, value, callback) => {

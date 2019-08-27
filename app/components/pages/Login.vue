@@ -28,30 +28,15 @@
         loading: false
       };
     },
-    mounted() {
-      Auth.currentAuthenticatedUser({
-        bypassCache: true
-      }).then(user => {
-        console.log(user)
-        if (user) {
-          location.href = '/books'
-        }
-      }).catch(err => {
-        console.log(err)
-      });
-    },
     methods: {
       async handleLogin() {
         try {
           Auth.signIn(this.userId, this.password).then(user => {
-            console.log(user)
             if (user) {
               location.href = '/books'
             }
           })
         } catch(error) {
-          console.log('hoge')
-          console.log(error)
           // TODO: 例外処理
           if (error.code === 'UserNotConfirmedException') {
             console.log('ユーザーはコード認証が済んでいません')

@@ -10,25 +10,40 @@
 </template>
 
 <script>
-  import { Auth } from 'aws-amplify';
+  import { Auth } from 'aws-amplify'
+
   export default {
     data() {
       return {
         isLoggedIn: false
       }
     },
-    created() {
-      Auth.currentAuthenticatedUser({
-        bypassCache: true
-      }).then(user => {
-        console.log(user)
-        if (user) {
-          this.isLoggedIn = true
+    mounted() {
+      if (process.client) {
+        try {
+          Auth.currentUserInfo().then(user => {
+            this.isLoggedIn = Boolean(user);
+          })
+        } catch (error) {
+          console.log(error)
         }
-      }).catch(err => {
-        console.log(err)
-      });
+      }
     },
+    // mounted() {
+    //   Auth.currentUserInfo().then(user => {
+    //     console.log(user)
+    //     if (user) {
+    //       this.isLoggedIn = true
+    //     } else {
+    //       this.isLoggedIn = false
+    //       location.href = '/login'
+    //     }
+    //   }).catch(err => {
+    //     console.log(err)
+    //     this.isLoggedIn = false
+    //     location.href = '/login'
+    //   });
+    // },
     methods: {
       handleSelect() {
         console.log('hoge')
@@ -41,6 +56,7 @@
           .then(data => {
             console.log(data)
             this.isLoggedIn = false
+            location.href = '/login'
           })
           .catch(err => console.log(err));
       }

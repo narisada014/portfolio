@@ -70,7 +70,7 @@ module.exports = {
   ** Build configuration
   */
   build: {
-    vendor: ['element-ui'],
+    vendor: ['element-ui', 'aws-amplify'],
     /*
     ** You can extend webpack config here
     */

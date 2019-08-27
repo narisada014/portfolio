@@ -1,9 +1,17 @@
 import { Auth } from 'aws-amplify'
 
-export default async ({ redirect }) => {
-  let signedIn = false
-  await Auth.currentUserInfo()
-    .then(data => (signedIn = Boolean(data)))
-    .catch(error => console.log(error))
-    .then(() => signedIn || redirect('/login'))
+export default async function ({ redirect, req }) {
+  let loggedIn = false
+  if (process.server) {
+  } else {
+    try {
+      const user = await Auth.currentUserInfo()
+      loggedIn = Boolean(user)
+    } catch (e) {
+      console.log(e)
+    }
+  }
+  if (!loggedIn) {
+    return redirect('/login')
+  }
 }

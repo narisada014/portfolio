@@ -46,6 +46,7 @@
 
 <script>
   import axios from 'axios'
+  import { Auth } from 'aws-amplify'
   export default {
     data() {
       return {
@@ -55,6 +56,21 @@
         numberOfBooks: 0,
         // vuexに移動
         isSuccessResponse: false
+      }
+    },
+    async created() {
+      let loggedIn = false
+      if (process.client) {
+        try {
+          await Auth.currentUserInfo().then(user => {
+            loggedIn = Boolean(user)
+            if (!loggedIn) {
+              location.href = '/login'
+            }
+          })
+        } catch (error) {
+          console.log(error)
+        }
       }
     },
     methods: {
@@ -67,7 +83,6 @@
           }
         }).then(res => {
           this.isSuccessResponse = true
-          console.log(res)
         })
       },
       beforeAvatarUpload(file) {
@@ -83,8 +98,6 @@
         return isJPG && isLt2M;
       },
       handleSave() {
-        console.log('hoge')
-        console.log(this.numberOfBooks)
         this.numberOfBooks = this.numberOfBooks + 1
       }
     }
