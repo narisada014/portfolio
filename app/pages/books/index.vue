@@ -48,6 +48,7 @@
   import axios from 'axios'
   import { Auth } from 'aws-amplify'
   export default {
+    // middleware: 'auth',
     data() {
       return {
         imageUrl: '',
@@ -58,20 +59,19 @@
         isSuccessResponse: false
       }
     },
-    async created() {
+    beforeCreate() {
       let loggedIn = false
-      if (process.client) {
         try {
-          await Auth.currentUserInfo().then(user => {
+          Auth.currentUserInfo().then(user => {
             loggedIn = Boolean(user)
             if (!loggedIn) {
-              location.href = '/login'
+              this.$router.push('/login')
             }
           })
         } catch (error) {
           console.log(error)
         }
-      }
+
     },
     methods: {
       handleAdd: async function (file) {

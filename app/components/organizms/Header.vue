@@ -18,8 +18,7 @@
         isLoggedIn: false
       }
     },
-    mounted() {
-      if (process.client) {
+    beforeCreate() {
         try {
           Auth.currentUserInfo().then(user => {
             this.isLoggedIn = Boolean(user);
@@ -27,7 +26,6 @@
         } catch (error) {
           console.log(error)
         }
-      }
     },
     // mounted() {
     //   Auth.currentUserInfo().then(user => {
@@ -56,7 +54,7 @@
           .then(data => {
             console.log(data)
             this.isLoggedIn = false
-            location.href = '/login'
+            this.$router.push('/login')
           })
           .catch(err => console.log(err));
       }
