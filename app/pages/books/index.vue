@@ -1,104 +1,25 @@
 <template>
-  <div class="books-register">
-    <h1 class="page-title">本のコレクション作成</h1>
-    <div class="input-area">
-      <h1 class="title-label">タイトル</h1>
-      <el-input
-        class="title"
-        type="input"
-        autosize
-        placeholder="本のタイトルを入力してください"
-        v-model="title"
-      >
-      </el-input>
-      <div style="margin: 20px 0;"></div>
-      <h1 class="content-label">内容</h1>
-      <el-input
-        class="book-textarea"
-        type="textarea"
-        :autosize="{ minRows: 2, maxRows: 4}"
-        placeholder="本の概要・本同士の関連性を記入してください"
-        v-model="textarea">
-      </el-input>
-    </div>
-    <div style="margin: 20px 0;"></div>
-    <div class="register-container">
-      <div class="upload-image">
-        <h1 class="book-image-label">本の表紙画像</h1>
-        <el-upload
-          class="avatar-uploader"
-          action=""
-          :auto-upload="false"
-          :on-change="handleAdd"
-          :before-upload="beforeAvatarUpload"
-          :show-file-list="false"
-        >
-          <img v-if="imageUrl" :src="imageUrl" class="avatar">
-          <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-        </el-upload>
-      </div>
-      <div class="register-button">
-        <el-button class="register-book" size="mini" type="default" @click="handleSave">1冊目の本を登録する</el-button>
-      </div>
-    </div>
-  </div>
+  <BookRegisters />
 </template>
 
 <script>
-  import axios from 'axios'
+  import BookRegisters from '../../components/pages/BookRegisters'
   import { Auth } from 'aws-amplify'
   export default {
-    // middleware: 'auth',
-    data() {
-      return {
-        imageUrl: '',
-        title: '',
-        textarea: '',
-        numberOfBooks: 0,
-        // vuexに移動
-        isSuccessResponse: false
-      }
+    components: {
+      BookRegisters
     },
     beforeCreate() {
       let loggedIn = false
-        try {
-          Auth.currentUserInfo().then(user => {
-            loggedIn = Boolean(user)
-            if (!loggedIn) {
-              this.$router.push('/login')
-            }
-          })
-        } catch (error) {
-          console.log(error)
-        }
-
-    },
-    methods: {
-      handleAdd: async function (file) {
-        this.imageUrl = URL.createObjectURL(file.raw);
-        const response = await axios.get('http://localhost:3000/users/upload')
-        axios.put(response.data.url, file.raw, {
-          headers: {
-            "Content-Type": file.raw.type
+      try {
+        Auth.currentUserInfo().then(user => {
+          loggedIn = Boolean(user)
+          if (!loggedIn) {
+            this.$router.push('/login')
           }
-        }).then(res => {
-          this.isSuccessResponse = true
         })
-      },
-      beforeAvatarUpload(file) {
-        const isJPG = file.type === 'image/jpeg';
-        const isLt2M = file.size / 1024 / 1024 < 2;
-
-        if (!isJPG) {
-          this.$message.error('Avatar picture must be JPG format!');
-        }
-        if (!isLt2M) {
-          this.$message.error('Avatar picture size can not exceed 2MB!');
-        }
-        return isJPG && isLt2M;
-      },
-      handleSave() {
-        this.numberOfBooks = this.numberOfBooks + 1
+      } catch (error) {
+        console.log(error)
       }
     }
   }
