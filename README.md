@@ -1,6 +1,7 @@
 # portfolio
 
 ポートフォリオ用の個人プロジェクト（本の関連読み紹介アプリケーション）
+バックエンドはServerlessFrameworkで動作。
 ![スクリーンショット 2019-09-02 1 40 17](https://user-images.githubusercontent.com/24750002/64079496-043a7480-cd23-11e9-9305-b22df2c34872.png)
 
 ## Build Setup
